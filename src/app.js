@@ -11,6 +11,7 @@ const lessonRoutes = require("./routes/lessonRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 const llmRoutes = require("./routes/llmRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/lessons", lessonRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/sessions", sessionRoutes);
 app.use("/llm", llmRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 const PORT = process.env.PORT || 5000;
 

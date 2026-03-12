@@ -6,7 +6,13 @@ exports.createSession = async (req, res) => {
 
   try {
 
-    const { lessonId, date, topic, summary } = req.body;
+    const { lessonId, topic, summary } = req.body;
+
+    if(!mongoose.Types.ObjectId.isValid(lessonId)){
+        return res.status(400).json({
+            message: "Invalid lesson ID"
+        });
+    }
 
     const lesson = await Lesson.findById(lessonId);
 
@@ -18,16 +24,20 @@ exports.createSession = async (req, res) => {
 
     const session = await Session.create({
       lessonId,
-      date,
       topic,
-      summary
+      summary,
+      date: new Date() // auto-generate date
     });
 
     res.status(201).json(session);
 
   } catch (error) {
 
-    res.status(500).json({ error: error.message });
+    console.error(error);
+
+    res.status(500).json({
+      error: error.message
+    });
 
   }
 
@@ -47,7 +57,7 @@ exports.getLessonSessions = async (req, res) => {
 
     const sessions = await Session.find({
       lessonId
-    });
+    }).sort({ date: -1 });
 
     res.json(sessions);
 
