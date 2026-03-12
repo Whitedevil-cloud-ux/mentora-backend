@@ -34,5 +34,6 @@ Create .env:
 MONGO_URI=
 JWT_SECRET=
 GROQ_API_KEY=
+PORT=
 
 npm run dev
